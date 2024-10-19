@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/sign.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.svg') }}">
+</head>
+<body>
+    <div id="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center"><h1>Login</h1></div>
+                    <div class="card-body">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+                            <div class="form-group">
+                                {{ form.email.label(class="form-control-label") }}
+                                {{ form.email(class="form-control") }}
+                            </div>
+                            <div class="form-group position-relative">
+                                {{ form.password.label(class="form-control-label") }}
+                                {{ form.password(class="form-control") }}
+                                <span class="position-absolute" style="top: 75%; right: 10px; transform: translateY(-50%); cursor: pointer; color: black;">
+                                    <i class="fas fa-eye" id="togglePassword"></i>
+                                </span>
+                            </div>
+                            <div class="form-group d-flex justify-content-between align-items-center">
+                                <div class="">
+                                    {{ form.remember }}
+                                    {{ form.remember.label(class="form-check-label") }}
+                                </div>
+                                <div class="">
+                                    <a href="{{ url_for('reset_password') }}">Forgot Password?</a>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <hr>
+                            <a class="btn btn-primary btn-block" href="{{ url_for('google.login') }}">Login with Google</a>
+                            <a class="btn btn-primary btn-block" href="{{ url_for('facebook.login') }}">Login with Facebook</a>
+                            <a class="btn btn-primary btn-block" href="{{ url_for('apple_login') }}">Login with Apple</a>
+                            <div>
+                                <p class="text-center mt-3"> Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function (e) {
+            const passwordInput = document.getElementById('{{ form.password.id }}');
+            const icon = e.target;
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+    </script>
+
+    <!-- Optional: JavaScript libraries -->
+    <script src="{{ url_for('static', filename='scripts/sign.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/base.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include any additional JavaScript files here -->
+</body>
+</html>

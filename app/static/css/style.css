@@ -1,0 +1,420 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Georgia';
+    width: 100%;
+}
+
+/* Custom CSS for flash messages */
+#flash-messages {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050; /* Ensure it appears above other content */
+}
+
+/*.form-group {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}*/
+
+/* Example custom styling for alerts if needed 
+#flash-messages .alert {
+    min-width: 20px; /* Ensure a minimum width *
+    max-width: 50px; /* Limit the maximum width *
+    margin-bottom: 30px; /* Space between multiple alerts 
+}*/
+
+/* Style for the redesigned search bar */
+.navbar-center .search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-center .search-bar input[type="search"] {
+    padding: 10px 40px 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 450px;
+    max-width: 100%;
+    font-size: 14px;
+}
+
+.navbar-center .search-bar input[type="search"]:focus {
+    border-color: #007bff;
+}
+
+.navbar-center .search-bar button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #007bff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.navbar-center .search-bar button:hover {
+    color: #0056b3;
+}
+
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.navbar-nav .nav-link {
+    font-size: 1.1rem;
+}
+.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+.form-inline {
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+}
+.navbar-nav {
+    flex-direction: row;
+}
+
+.jumbotron {
+    height: 600px;
+    background: url('../images/home.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+.jumbotron h1 {
+    font-size: 3rem;
+    justify-content: center;
+    text-align: center;
+}
+.jumbotron p {
+    font-size: 2rem;
+    color: #ffffff;
+}
+.jumbotron-heading, .my-2 {
+    text-align: center;
+    justify-content: center;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.role {
+    background: url(../images/listForm.svg) no-repeat center center;
+    background-size: cover;
+    
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+}
+
+.listing-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* space between items */
+}
+
+.listing-item {
+    background-color: #f9f9f9; /* light background for each item */
+    border: 1px solid #ddd; /* light border */
+    border-radius: 8px; /* rounded corners */
+    padding: 10px; /* space inside the item */
+    width: calc(33.333% - 20px); /* three items per row */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* light shadow */
+    transition: transform 0.3s; /* smooth hover effect */
+}
+
+.listing-item:hover {
+    transform: scale(1.05); /* slight zoom on hover */
+}
+
+.listing-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* center the image */
+}
+
+.listing-details {
+    text-align: center; /* center text */
+    margin-top: 10px; /* space between image and details */
+}
+
+.listing-details a {
+    display: block;
+    font-weight: bold;
+    color: #333; /* text color */
+    text-decoration: none; /* remove underline */
+    margin-bottom: 5px; /* space below name */
+}
+
+.listing-details p {
+    color: #555; /* text color */
+}
+
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #e5ddd5;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.chat-message.sent {
+    justify-content: flex-end;
+}
+
+.chat-message.received {
+    justify-content: flex-start;
+}
+
+.chat-message-content {
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-message-bubble {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.chat-message.sent .chat-message-bubble {
+    background-color: #dcf8c6;
+}
+
+.chat-message-timestamp {
+    display: block;
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.chat-reply {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+}
+
+.review-card {
+    color: #fff;
+    background: url(../images/review.svg) no-repeat center center;
+    background-size: cover;
+    transition: transform 0.1s;
+    border-radius: 0px 50px 0px 50px;
+}
+
+.review-card:hover {
+    transform: scale(2.05);
+}
+
+.review-card .fas,
+.review-card .far {
+    color: #ffc107;
+}
+
+.list-form {
+    background-image: url(../images/listForm.svg) no-repeat;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.slide-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* css for preload */
+.hidden {
+    display: none;
+}
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.list-page {
+    padding-top: 2rem;
+}
+
+#suggestions {
+    position: absolute;
+    z-index: 1000;
+    width: 250px;
+    background: white;
+    border: 1px solid #ddd;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#suggestions li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#suggestions li:hover {
+    background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+    .jumbotron {
+        background-size: auto 100%;
+        background-position: center top;
+    }
+    
+    .search-bar input,
+    .search-bar select {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+    
+    .search-bar button {
+        width: 100% !important;
+    }
+    
+    #map {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .jumbotron-heading {
+        font-size: 2rem;
+    }
+    
+    .lead {
+        font-size: 1.25rem;
+    }
+    
+    .navbar-brand img {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .nav-link {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1000; /* Ensures the input is above the map */
+}
+
+.suggestions {
+    position: absolute;
+    top: 50px;
+    background: black;
+    border: 1px solid #ccc;
+    width: 250px;
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* Ensures suggestions are above other content */
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.property-management {
+    height: 600px;
+    max-width: 80%;
+    background-image: url(../images/cabin.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+    color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 3rem;
+}
+
+
+
+#suggestions-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    max-height: 200px;
+    overflow-y: auto;
+}

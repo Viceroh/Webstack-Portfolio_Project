@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }}'s Profile{% endblock %}
+{% block content %}
+    <style>
+        body {
+            background: url(../static/images/listings.svg) no-repeat center;
+            background-size: cover;
+            background-attachment: fixed;
+            color: #f5f5f5;
+        }
+    </style>
+    <i><h1 class="text-center">{{ user.username }}'s Profile</h1></i>
+    {% if current_user.image %}
+        <div class="form-group">
+            <img src="{{ url_for('static', filename='uploads/' + current_user.image_file) }}" alt="Profile Image" class="img-thumbnail">
+        </div>
+    {% else %}
+        <div class="form-group">
+            <b><p>No profile image available</p></b>
+        </div>
+    {% endif %}
+    <p><b><h5>Full Name:</h5></b><i>
+        {% if user.is_authenticated %} 
+            {{ user.full_name }}
+        {% else %}
+            <p>Null</p>
+        {% endif %}
+    </i></p>
+    <p><b><h5>First Name:</h5></b> <i>{{ user.first_name }}</i></p>
+    <p><b><h5>Last Name:</h5></b> <i>{{ user.last_name }}</i></p>
+    <p><b><h5>Email:</h5></b> <i>{{ user.email }}</i></p>
+    <p><b><h5>Country code</h5></b> <i>{{ user.country_code }}</i></p>
+    <p><b><h5>Phone Number:</h5></b> <i>{{ user.phone_number }}</i></p>
+    <p><b><h5>About me:</h5></b> <i>{{ user.about_me }}</i></p>
+    <p><b><h5>Member since:</h5></b><i>
+        {% if user.member_since %}
+            {{ user.member_since.strftime('%Y-%m-%d') }}
+        {% else %}
+            Not available
+        {% endif %} </i>
+    </p>
+    {% if user == current_user %}
+        <a href="{{ url_for('edit_profile') }}" class="btn btn-primary">Edit Profile</a>
+    {% endif %}
+    {% if user == current_user %}
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+    {% endif %}
+{% endblock %}

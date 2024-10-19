@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+<div class="container-fluid p-0">
+    <div class="row no-gutters">
+        <div class="col-md-12">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h5>
+                        <a class="text-dark" href="{{ url_for('profile', username=user.username) }}">{{ user.username }}</a></h5>
+                    <small id="status-indicator">{{ user.last_seen.status }}</small>
+                </div>
+
+                <div class="chat-messages">  `
+                    {% for message in messages %}
+                        <div class="message {% if message.sender_id == current_user.id %}sent{% else %}received{% endif %}">
+                            <span class="message-text">
+                                {{ message.body }}
+                                <span class="message-time">{{ message.timestamp.strftime('%H:%M') }}</span>
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <form action="" method="post" class="chat-input-form">
+                    {{ form.hidden_tag() }}
+                    <input type="text" id="message-input" name="body" placeholder="Message..." required>
+                    <button type="submit" id="send-button"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script>
+$(document).ready(function() {
+    var socket = io();
+
+    // Update status indicator
+    socket.on('status_update', function(data) {
+        if (data.user_id == '{{ user.id }}') {
+            $('#status-indicator').text(data.status);
+        }
+    });
+
+    // Ping server every minute to update last seen time
+    setInterval(function() {
+        $.ajax({
+            url: '/status',
+            type: 'GET'
+        });
+    }, 60000);
+
+    // Scroll to bottom of chat on page load
+    $('.chat-messages').scrollTop($('.chat-messages')[0].scrollHeight);
+
+    // Function to format timestamp
+    function formatTimestamp(timestamp) {
+        return moment(timestamp).format('HH:mm');
+    }
+
+    // Send message on enter press
+    $('#message-input').keypress(function(e) {
+        if (e.which == 13 && !e.shiftKey) {
+            e.preventDefault();
+            $('form.chat-input-form').submit();
+        }
+    });
+
+    // Update scroll position after sending a message
+    $('form.chat-input-form').submit(function() {
+        setTimeout(() => {
+            $('.chat-messages').scrollTop($('.chat-messages')[0].scrollHeight);
+        }, 100);
+    });
+});
+</script>
+{% endblock %}

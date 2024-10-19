@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Search Results{% endblock %}
+{% block content %}
+    <style>
+        body {
+            background: url(../static/images/bookings.svg) no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        i {
+            color: #fff;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 50px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            border-radius: 50px;
+        }
+        .container-fluid .card{
+            backdrop-filter: blur(40px);
+            border-radius: 0 0 50px 50px;
+            background-color: transparent;
+            border-color: #fff;
+            border-width: 3px;
+            border-style: solid;
+            box-shadow: rgb(200, 400, 500);
+        }
+        .card-body {
+            backdrop-filter: blur(40px);
+        }
+        .card-ing-top {
+            border-radius: 50px 50px 0 0;
+        }
+    </style>
+    <div class="container mt-5">
+        <h1 class="mb-4">Search Results for "{{ search_term }}"</h1>
+        {% if listings %}
+            <div class="row">
+                {% for listing in listings %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{{ url_for('listing', listing_id=listing.id) }}">{{ listing.title }}</a>
+                                </h5>
+                                <div class="col-md-4 d-flex align-items-stretch">
+                                    {% if listing.images|length > 0 %}
+                                        <img src="{{ url_for('static', filename='images/' ~ listing.images[0].file_name) }}" class="card-img-top" alt="{{ listing.title }}">
+                                    {% else %}
+                                        <img src="{{ url_for('static', filename='images/default.jpg') }}" class="card-img-top" alt="{{ listing.title }}">
+                                    {% endif %}
+                                </div>
+                                <p class="card-text">{{ listing.description| truncate(100) }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <p class="card-text"><strong>Price:</strong> {{ listing.currency }}  {{ listing.price }} </p>
+                                <p class="card-text"><strong>Location:</strong> {{ listing.location }}</p>
+                                <p class="card-text"><strong>State:</strong> {{ listing.state.name }}</p>
+                                <p class="card-text"><strong>Amenities:</strong>
+                                    {% for amenity in listing.amenities %}
+                                        {{ amenity.amenity.name }},
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No listings found for "{{ search_term }}".</p>
+        {% endif %}
+    </div>
+{% endblock %}

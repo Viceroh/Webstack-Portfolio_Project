@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Listings{% endblock %}
+{% block content %}
+    <style>
+        body {
+            background: url(../static/images/bookings.svg) no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        i {
+            color: #fff;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-30px);
+            box-shadow: 0 10px 20px rgba(247, 246, 246, 0.15);
+        }
+
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 50px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            border-radius: 50px;
+        }
+
+        .container-fluid .card {
+            backdrop-filter: blur(40px);
+            border-radius: 10px 10px 50px 50px;
+            background-color: transparent;
+            border-color: #f39006;
+            border-width: 3px;
+            border-style: solid;
+            box-shadow: rgb(200, 400, 500);
+        }
+
+        .card-body {
+            backdrop-filter: blur(40px);
+        }
+
+        .card-ing-top {
+            border-radius: 50px 50px 0 0;
+        }
+
+        /* Make the anchor tag cover the entire card */
+        .card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+
+    <div class="container-fluid mt-5 list-page">
+        <h1 class="my-4 text-center"><strong><i>Listings</i></strong></h1>
+        <div class="row">
+            {% for listing in listings.items %}
+                <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
+                    <a href="{{ url_for('listing', listing_id=listing.id) }}" class="card-link">
+                        <div class="card mb-4 shadow-sm">
+                            {% if listing.images|length > 0 %}
+                                <img src="{{ url_for('static', filename='images/' ~ listing.images[0].file_name) }}" class="card-img-top" alt="{{ listing.title }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/default.jpg') }}" class="card-img-top" alt="{{ listing.title }}">
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ listing.title }}</h5>
+                                <p><strong>Price:</strong> {{ listing.currency }} {{ listing.price }}</p>
+                                <p class="card-text"><strong>State:</strong> {{ listing.state.name }}</p>
+                                <p class="card-text">{{ listing.description | truncate(50) }}</p>
+                                <div class="mt-auto">
+                                    <span class="btn btn-primary btn-block mb-2">View Details</span>
+                                    <a href="{{ url_for('book_listing', listing_id=listing.id) }}" class="btn btn-success btn-block">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            {% if listings.has_prev %}
+                <a href="{{ url_for('listings', page=listings.prev_num) }}" class="btn btn-secondary">Previous</a>
+            {% endif %}
+            {% if listings.has_next %}
+                <a href="{{ url_for('listings', page=listings.next_num) }}" class="btn btn-secondary">Next</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>3ple~R - List Your Property</title>
+    <!-- External CSS and Font Icons -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list-prop.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.svg') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: black;
+        }
+        .jumbotron {
+            background-size: cover;
+            color: #fff;
+        }
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Section -->
+    <header>
+        <strong>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/icon.svg') }}" width="30" height="30" alt="3ple~R Logo">
+                3ple~R
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/help-center" aria-label="Help Center">Help
+                            <i class="fas fa-question-circle"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        </strong>
+    </header>
+
+    <!-- Call to Action Section -->
+    <div class="jumbotron jumbotron-fluid text-center">
+        <div class="container" style="top: 5rem;">
+            <h1 class="display-4">Reach Millions of Potential Buyers and Renters</h1>
+            <p class="lead">It's easy and fast to list your property with us. Start now!</p>
+            <a href="{{ url_for('new_listing') }}" class="btn btn-warning btn-lg">List Your Property</a>
+        </div>
+    </div>
+
+    <!-- Steps Section -->
+    <div class="container my-5">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="fas fa-edit fa-3x"></i>
+                <h4>Step 1: Sign Up or Login</h4>
+                <p>Create an account or log in to start listing your property.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-list-alt fa-3x"></i>
+                <h4>Step 2: Create Your Listing</h4>
+                <p>Fill in the details of your property with photos and descriptions.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-check fa-3x"></i>
+                <h4>Step 3: Start Getting Bookings</h4>
+                <p>Your property will be visible to millions of potential renters and buyers.</p>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 3ple~R {{ current_year }} - All Rights Reserved</p>
+        <p>
+            <a href="/privacy-&-policy" class="text-white mx-2">Privacy Policy</a> | 
+            <a href="/terms-and-conditions" class="text-white mx-2">Terms of Service</a> | 
+            <a href="mailto:support@3ple~R.com" class="text-white mx-2">Contact Us</a>
+        </p>
+    </footer>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <img src="{{ url_for('static', filename='images/loading.gif') }}" alt="Loading">
+    </div>
+
+    <!-- External Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
