@@ -39,6 +39,7 @@ The application follows a modular design with a clear separation of concerns bet
 Technologies Used
 
 Frontend:
+
 •HTML5, CSS3, JavaScript
 •Bootstrap 5 for responsive design
 
